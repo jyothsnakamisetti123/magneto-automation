@@ -9,6 +9,9 @@ module.exports = defineConfig({
     baseUrl: "https://magento.softwaretestingboard.com",
     specPattern: "cypress/e2e/features/**/*.feature",
     stepDefinitions: "cypress/e2e/features/step_definitions/*.js",
+    video: true,
+    screenshotsFolder: "cypress/screenshots",
+    videosFolder: "cypress/videos",
     pageLoadTimeout: 120000,
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
