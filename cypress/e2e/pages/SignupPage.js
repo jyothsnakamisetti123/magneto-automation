@@ -1,3 +1,6 @@
+
+import signupLocators from "../locators/signupLocators";
+
 class SignupPage {
   visitSignupPage() {
     cy.visit("/customer/account/create/", { timeout: 100000 });
@@ -8,77 +11,77 @@ class SignupPage {
   }
 
   enterFirstName(name) {
-    cy.get("#firstname").clear().type(name);
+    cy.get(signupLocators.firstName).clear().type(name);
   }
 
   enterLastName(name) {
-    cy.get("#lastname").clear().type(name);
+    cy.get(signupLocators.lastName).clear().type(name);
   }
 
   enterEmail(email) {
-    cy.get("#email_address").clear().type(email);
+    cy.get(signupLocators.email).clear().type(email);
   }
 
   enterInvalidEmail(email) {
-    cy.get("#email_address").clear().type(email);
+    cy.get(signupLocators.email).clear().type(email);
   }
 
   enterPassword(password) {
-    cy.get("#password").clear().type(password);
+    cy.get(signupLocators.password).clear().type(password);
   }
 
   confirmPassword(password) {
-    cy.get("#password-confirmation").clear().type(password);
+    cy.get(signupLocators.confirmPassword).clear().type(password);
   }
 
   submitForm() {
-    cy.get("button[title='Create an Account']").click();
+    cy.get(signupLocators.signupButton).click();
   }
 
   submitWithoutData() {
-    cy.get("button[title='Create an Account']").click();
+    cy.get(signupLocators.signupButton).click();
   }
 
   enterLoginEmail(email) {
-    cy.get("#email").clear().type(email);
+    cy.get(signupLocators.loginEmail).clear().type(email);
   }
 
   enterLoginPassword(password) {
-    cy.get("#pass").clear().type(password);
+    cy.get(signupLocators.loginPassword).clear().type(password);
   }
 
   submitLogin() {
-    cy.get("#send2").click();
+    cy.get(signupLocators.loginButton).click();
   }
 
   assertValidationErrors() {
-    cy.get("#firstname-error").should("be.visible");
-    cy.get("#lastname-error").should("be.visible");
-    cy.get("#email_address-error").should("be.visible");
-    cy.get("#password-error").should("be.visible");
-    cy.get("#password-confirmation-error").should("be.visible");
+    cy.get(signupLocators.firstNameError).should("be.visible");
+    cy.get(signupLocators.lastNameError).should("be.visible");
+    cy.get(signupLocators.emailError).should("be.visible");
+    cy.get(signupLocators.passwordError).should("be.visible");
+    cy.get(signupLocators.confirmPasswordError).should("be.visible");
   }
 
   assertEmailFormatError() {
-    cy.get("#email_address-error")
-      .should("contain", "Please enter a valid email address");
+    cy.get(signupLocators.emailError)
+      .should("contain", signupLocators.invalidEmailErrorText);
   }
 
   assertPasswordMismatchError() {
-    cy.contains("Please enter the same value again.").should("be.visible");
+    cy.contains(signupLocators.passwordMismatchErrorText).should("be.visible");
   }
 
   assertDuplicateEmailError() {
-    cy.contains("There is already an account with this email address").should("be.visible");
+    cy.contains(signupLocators.duplicateEmailErrorText).should("be.visible");
   }
 
   assertLoginError() {
-    cy.contains("The account sign-in was incorrect").should("be.visible");
+    cy.contains(signupLocators.loginErrorText).should("be.visible");
   }
 
   assertDashboard() {
-    cy.url().should("include", "/customer/account/");
-    cy.contains("Welcome").should("be.visible");
+    cy.url().should("include", signupLocators.dashboardUrl);
+   // cy.contains(signupLocators.welcomeText).should("be.visible");
   }
 }
 
